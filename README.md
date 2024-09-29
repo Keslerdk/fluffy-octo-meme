@@ -4,29 +4,42 @@ This repository is a template. You can use it to generate your own repository to
 
 ## How to use it
 
-1. Create a new repository using this one as a template. [Click here][create_template]
-2. Edit MyRule to fit your use case
-3. Share your rule! You can upload your rule to [Maven Central][maven_central] if you want. If you don't want to do all
-   the steps that Maven Central requires you can just share your rule using [jitpack][jitpack].
-4. Extra: you can remove all this README and explain what your rule does and how to configure it.
+add to root gradle 
+```kotlin
 
-## Documentation
+plugins {
+    ...
+    alias(libs.plugins.detekt) apply true
+}
 
-You can find the documentation about how to write [custom rules here][custom_rule_documentation].
+dependencies {
+    detektPlugins(libs.detekt.formatting)
+    detektPlugins(project(":rules"))
+}
 
-## Note
+val projectSource = file(projectDir)
+val configFile = files("$projectDir/config/detekt/detekt.yml")
+val baselineFile = file("$projectDir/config/detekt/baseline.xml")
+val kotlinFiles = "**/*.kt"
+val gradleFiles = "**/*.kts"
+val resourceFiles = "**/resources/**"
+val buildFiles = "**/build/**"
+val testFiles = "**/src/test/**"
+val ruleModule = "**/rules/**"
 
-- Remember that, by default, all rules are disabled. To configure your rules edit the file in
-`src/main/resources/config/config.yml`.
-- Once you have your rules ready you can publish them on the [detekt's marketplace][detekt_marketplace] to improve the discoverability. To do so create a PR editing [this file][detekt_marketplace_edit].
+tasks.register<Detekt>("detektAll") {
+    dependsOn(":rules:assemble")
 
-[create_template]: https://github.com/detekt/detekt-custom-rule-template/generate
-
-[maven_central]: https://search.maven.org/
-
-[custom_rule_documentation]: https://detekt.github.io/detekt/extensions.html
-
-[jitpack]: https://jitpack.io/
-
-[detekt_marketplace]: https://detekt.dev/marketplace
-[detekt_marketplace_edit]: https://github.com/detekt/detekt/blob/main/website/src/data/marketplace.js
+    description = "Custom DETEKT build for all modules"
+    ignoreFailures = false
+    parallel = true
+    setSource(projectSource)
+    allRules = false
+    config.setFrom(file("$projectDir/config/detekt/detekt.yml"))
+    include(kotlinFiles, gradleFiles)
+    exclude(resourceFiles, testFiles, ruleModule)
+    reports {
+        html.required.set(true)
+    }
+}
+```

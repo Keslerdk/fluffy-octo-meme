@@ -15,7 +15,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(22)
 }
 
 tasks.withType<Test>().configureEach {
