@@ -1,3 +1,8 @@
 rules:
+  active: true
+  TriLayersRule:
+    active: true
   DependencyRule:
+    active: true
+  ImplLeakRule:
     active: true

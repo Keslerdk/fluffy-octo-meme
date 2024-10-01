@@ -1,6 +1,5 @@
-package org.example.detekt.arch
+package org.example.detekt.arch.modules
 
-import io.github.detekt.psi.absolutePath
 import io.gitlab.arturbosch.detekt.api.CodeSmell
 import io.gitlab.arturbosch.detekt.api.Config
 import io.gitlab.arturbosch.detekt.api.Debt
@@ -8,14 +7,9 @@ import io.gitlab.arturbosch.detekt.api.Entity
 import io.gitlab.arturbosch.detekt.api.Issue
 import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
+import org.example.detekt.arch.ModuleType
+import org.example.detekt.arch.getCurrentLayer
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
-
-enum class ModuleType(val possibleNames: List<String>) {
-
-    DATA(listOf("data", "repository")),
-    DOMAIN(listOf("domain")),
-    UI(listOf("ui", "presentation"));
-}
 
 class DependencyRule(config: Config) : Rule(config) {
     companion object {
@@ -34,22 +28,17 @@ class DependencyRule(config: Config) : Rule(config) {
     }
 
     private fun checkDependencies(file: PsiFile) {
-        ModuleType.entries.forEach { type ->
-            val isLayer = type.possibleNames.any { name ->
-                file.absolutePath().toString().split('/').any { it == name }
-            }
-            if (isLayer) {
-                val forbiddenDeps = getForbiddenDeps(type)
-                val regexList = forbiddenDeps.map { getRegex(it) }
-                if (regexList.any { it.containsMatchIn(file.text) }) {
-                    report(
-                        CodeSmell(
-                            issue,
-                            Entity.Companion.from(file),
-                            getReportMessage(type, forbiddenDeps)
-                        )
+        getCurrentLayer(file.name)?.let { type ->
+            val forbiddenDeps = getForbiddenDeps(type)
+            val regexList = forbiddenDeps.map { getRegex(it) }
+            if (regexList.any { it.containsMatchIn(file.text) }) {
+                report(
+                    CodeSmell(
+                        issue,
+                        Entity.Companion.from(file),
+                        getReportMessage(type, forbiddenDeps)
                     )
-                }
+                )
             }
         }
     }
