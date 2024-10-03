@@ -1,8 +1,45 @@
 rules:
   active: true
-  TriLayersRule:
-    active: true
+
   DependencyRule:
     active: true
+  TriLayersRule:
+    active: true
   ImplLeakRule:
+    active: true
+
+  LayeredModelsRule:
+    active: true
+  MapListRule:
+    active: true
+
+  NoStateInRepositoryRule:
+    active: true
+  CrudRepositoryNamingRule:
+    active: true
+  SingleSourceRepositoryRule:
+    active: true
+  ResultWrapperRule:
+    active: true
+
+  UseCaseStructureRule:
+    active: true
+  UseCaseImplDepsRule:
+    active: true
+
+  ViewUpdateStateRule:
+    active: true
+  SingleViewStateRule:
+    active: true
+
+  ManualCoroutineScopeCreationRule:
+    active: true
+  FlowSubscriptionRule:
+    active: true
+
+  KoinModulesDistributionRule:
+    active: true
+  NoByInjectRule:
+    active: true
+  KoinModuleScopeRule:
     active: true
