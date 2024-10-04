@@ -15,6 +15,8 @@ plugins {
 dependencies {
     detektPlugins(libs.detekt.formatting)
     detektPlugins(project(":rules"))
+    detektPlugins ("io.nlopez.compose.rules:detekt:0.4.15")
+    detektPlugins("ru.kode:detekt-rules-compose:1.4.0")
 }
 
 val projectSource = file(projectDir)

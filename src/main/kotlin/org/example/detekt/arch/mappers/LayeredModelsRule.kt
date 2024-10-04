@@ -9,7 +9,7 @@ import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
 import io.gitlab.arturbosch.detekt.rules.hasAnnotation
 import org.example.detekt.arch.ModuleType
-import org.example.detekt.arch.getCurrentLayer
+import org.example.detekt.getCurrentLayer
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedFunction

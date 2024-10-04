@@ -8,7 +8,7 @@ import io.gitlab.arturbosch.detekt.api.Issue
 import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
 import org.example.detekt.arch.ModuleType
-import org.example.detekt.arch.getCurrentLayer
+import org.example.detekt.getCurrentLayer
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
 
 class DependencyRule(config: Config) : Rule(config) {

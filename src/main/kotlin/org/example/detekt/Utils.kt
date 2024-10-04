@@ -1,4 +1,7 @@
-package org.example.detekt.arch
+package org.example.detekt
+
+import org.example.detekt.arch.ModuleType
+import org.jetbrains.kotlin.psi.KtNamedFunction
 
 fun getCurrentLayer(path: String): ModuleType? =
     ModuleType.entries.findLast { type ->
@@ -17,3 +20,5 @@ fun isCommon(path: String): Boolean {
             listOf("core", "common", "app").any { blockOfPath.contains(it, ignoreCase = true) }
         }
 }
+
+val KtNamedFunction.body get() = this.bodyExpression ?: this.bodyExpression

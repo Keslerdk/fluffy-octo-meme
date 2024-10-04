@@ -1,4 +1,4 @@
-rules:
+CustomRules:
   active: true
 
   DependencyRule:
@@ -43,3 +43,20 @@ rules:
     active: true
   KoinModuleScopeRule:
     active: true
+
+  NoDirectColorUseRule:
+    active: true
+  NoCollectAsStateInComposableRule:
+    active: true
+
+  NavigationGraphSubgraphRule:
+    active: true
+  NoExtraParamsInNavigationRule:
+    active: true
+
+  UseStubsInTestsRule:
+    active: true
+  RecreateSutRule:
+    active: true
+  BeforeAnnotationInTest:
+    active: test

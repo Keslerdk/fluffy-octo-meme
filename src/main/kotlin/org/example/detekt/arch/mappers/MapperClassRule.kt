@@ -5,7 +5,7 @@ import io.gitlab.arturbosch.detekt.api.Debt
 import io.gitlab.arturbosch.detekt.api.Issue
 import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
-import org.example.detekt.arch.getCurrentLayer
+import org.example.detekt.getCurrentLayer
 import org.jetbrains.kotlin.psi.KtClass
 
 class MapperClassRule(config: Config) : Rule(config) {
