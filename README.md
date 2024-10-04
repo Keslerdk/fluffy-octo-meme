@@ -26,7 +26,7 @@ val kotlinFiles = "**/*.kt"
 val gradleFiles = "**/*.kts"
 val resourceFiles = "**/resources/**"
 val buildFiles = "**/build/**"
-val testFiles = "**/src/test/**"
+val androidTestFiles = "**/src/androidTest/**"
 val ruleModule = "**/rules/**"
 
 tasks.register<Detekt>("detektAll") {
@@ -39,7 +39,7 @@ tasks.register<Detekt>("detektAll") {
     allRules = false
     config.setFrom(file("$projectDir/config/detekt/detekt.yml"))
     include(kotlinFiles, gradleFiles)
-    exclude(resourceFiles, testFiles, ruleModule)
+    exclude(resourceFiles, androidTestFiles, ruleModule)
     reports {
         html.required.set(true)
     }
