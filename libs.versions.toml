@@ -1,0 +1,11 @@
+[versions]
+# Kotlin
+detektFormatting = "1.23.6"
+detekt = "1.23.7"
+
+[libraries]
+# AndroidX & test libriries
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektFormatting" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
+
