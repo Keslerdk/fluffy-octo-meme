@@ -11,9 +11,10 @@ import org.example.detekt.arch.ModuleType
 import org.example.detekt.getCurrentLayer
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
 
-class DependencyRule(config: Config) : Rule(config) {
+class ModuleDependencyRule(config: Config) : Rule(config) {
     companion object {
-        const val RULE_DESCRIPTION = "This rule reports the module which has incorrect dependencies"
+        const val RULE_DESCRIPTION =
+            "Проверяет корректность зависимостей между модулями 'data', 'domain' и 'ui'."
     }
 
     override val issue: Issue
@@ -57,5 +58,5 @@ class DependencyRule(config: Config) : Rule(config) {
     }
 
     private fun getReportMessage(type: ModuleType, forbiddenDeps: List<ModuleType>) =
-        "$type module shouldn't depends from ${forbiddenDeps.joinToString()} "
+        "Модуль $type не должен зависеть от ${forbiddenDeps.joinToString()} "
 }

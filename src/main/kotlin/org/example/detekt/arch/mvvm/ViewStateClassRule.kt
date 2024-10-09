@@ -11,9 +11,12 @@ import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.isPublic
 
-class SingleViewStateRule(config: Config) : Rule(config) {
+class ViewStateClassRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "View state should be presentated as one class"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что для каждого экрана существует общий класс состояния."
+        const val REPORT_MESSAGE =
+            "Должен быть только один класс состояния для управления состоянием экрана"
     }
 
     override val issue: Issue
@@ -36,13 +39,7 @@ class SingleViewStateRule(config: Config) : Rule(config) {
         }
 
         if (numOfState > 1) {
-            report(
-                CodeSmell(
-                    issue,
-                    Entity.Companion.from(klass),
-                    "ViewModel should be return only one state"
-                )
-            )
+            report(CodeSmell(issue, Entity.Companion.from(klass), REPORT_MESSAGE))
         }
     }
 

@@ -13,7 +13,8 @@ import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
 class SingleSourceRepositoryImplRule(config: Config) : Rule(config) {
     private companion object {
-        const val DESCRIPTION_RULE = "Data must have one source of truth"
+        const val DESCRIPTION_RULE = "Проверяет, что данные в приложении поступают из одного источника истины."
+        const val REPORT_MESSAGE = "При использовании кеша, возвращайте данные из кеша"
         val availableBodyText = listOf("fromLocal", "fromCache")
     }
 
@@ -33,7 +34,7 @@ class SingleSourceRepositoryImplRule(config: Config) : Rule(config) {
             function.text.contains(it, ignoreCase = true)
         }
         if (function.text?.contains("cache", ignoreCase = true) == true && isNotReadFromCache) {
-            report(CodeSmell(issue, Entity.Companion.from(function), "read from cache"))
+            report(CodeSmell(issue, Entity.Companion.from(function), REPORT_MESSAGE))
         }
     }
 }

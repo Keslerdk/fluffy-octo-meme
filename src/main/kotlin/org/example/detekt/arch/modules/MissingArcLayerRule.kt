@@ -10,10 +10,10 @@ import io.gitlab.arturbosch.detekt.api.Severity
 import org.example.detekt.arch.ModuleType
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
 
-class TriLayersRule(config: Config) : Rule(config) {
+class MissingArcLayerRule(config: Config) : Rule(config) {
 
     private companion object {
-        const val RULE_DESCRIPTION = "This module reports if there is no data, domain or ui layer"
+        const val RULE_DESCRIPTION = "Проверяет, что в проекте присутствуют слои 'data', 'domain' и 'ui'"
 
         const val SETTINGS_FILE = "settings.gradle.kts"
     }
@@ -38,5 +38,5 @@ class TriLayersRule(config: Config) : Rule(config) {
         }
     }
 
-    private fun getRegexText(type: ModuleType) = "There is no $type layer in project"
+    private fun getRegexText(type: ModuleType) = "В проекте отсутствует слой: $type"
 }

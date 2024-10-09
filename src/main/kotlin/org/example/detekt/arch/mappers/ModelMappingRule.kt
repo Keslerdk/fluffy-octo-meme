@@ -11,9 +11,11 @@ import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
-class MapListRule(config: Config) : Rule(config) {
+class ModelMappingRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Map model, not list"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что маппингу подвергаются отдельные модели, а не списки моделей."
+        const val REPORT_MESSAGE = "Маппинг должен выполняться на уровне отдельных моделей"
     }
 
     override val issue: Issue
@@ -29,13 +31,7 @@ class MapListRule(config: Config) : Rule(config) {
         if (function.getParentOfType<KtClass>(true)?.name?.contains("Mapper") == true) {
             function.valueParameters.forEach { param ->
                 if (param.typeReference?.text?.contains("List", ignoreCase = true) == true) {
-                    report(
-                        CodeSmell(
-                            issue,
-                            Entity.Companion.from(function),
-                            "Don't pass lists as args in mappers"
-                        )
-                    )
+                    report(CodeSmell(issue, Entity.Companion.from(function), REPORT_MESSAGE))
                 }
             }
         }

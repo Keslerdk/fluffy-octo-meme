@@ -1,40 +1,40 @@
-CustomRules:
+WBCustomRules:
   active: true
 
-  DependencyRule:
+  MissingArcLayerRule:
     active: true
-  TriLayersRule:
+  ModuleDependencyRule:
     active: true
-  ImplLeakRule:
+  ImplementationIsolationRule:
     active: true
 
-  LayeredModelsRule:
+  SeparateDataModelPerLayerRule:
     active: true
-  MapListRule:
+  ModelMappingRule:
     active: true
 
   NoStateInRepositoryRule:
     active: true
-  CrudRepositoryNamingRule:
+  RepositoryMethodNamingRule:
     active: true
   SingleSourceRepositoryRule:
     active: true
-  ResultWrapperRule:
+  RepositoryReturnsResultInWrapperRule:
     active: true
 
-  UseCaseStructureRule:
+  SingleMethodInUseCaseRule:
     active: true
-  UseCaseImplDepsRule:
-    active: true
-
-  ViewUpdateStateRule:
-    active: true
-  SingleViewStateRule:
+  UseCaseNoRepositoryDependencyRule:
     active: true
 
-  ManualCoroutineScopeCreationRule:
+  ViewStateUpdateThroughUpdateMethodRule:
     active: true
-  FlowSubscriptionRule:
+  ViewStateClassRule:
+    active: true
+
+  NoManualCoroutineScopeRule:
+    active: true
+  FlowSubscriptionInViewModelRule:
     active: true
 
   KoinModulesDistributionRule:

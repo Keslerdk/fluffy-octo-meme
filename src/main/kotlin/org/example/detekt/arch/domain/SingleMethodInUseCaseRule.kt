@@ -9,10 +9,14 @@ import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
 import org.jetbrains.kotlin.psi.KtClass
 
-class UseCaseStructureRule(config: Config) : Rule(config) {
+//todo: change to interactor
+class SingleMethodInUseCaseRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "UseCase should have only invoke or execute method"
         val availableNames = listOf("execute", "invoke")
+        val RULE_DESCRIPTION =
+            "Проверяет, что в классе UseCase есть только один метод с именем ${availableNames.joinToString()}."
+        const val REPORT_MESSAGE_1 = "В UseCase должен быть только метод"
+        val REPORT_MESSAGE_2 = "Метод в UseCase должен называться ${availableNames.joinToString()}"
     }
 
     override val issue: Issue
@@ -28,21 +32,13 @@ class UseCaseStructureRule(config: Config) : Rule(config) {
     private fun checkUseCaseStructure(klass: KtClass) {
         when {
             klass.body?.functions.orEmpty().size > 1 -> report(
-                CodeSmell(
-                    issue,
-                    Entity.Companion.from(klass),
-                    "UseCase should have only one function"
-                )
+                CodeSmell(issue, Entity.Companion.from(klass), REPORT_MESSAGE_1)
             )
 
             availableNames.none {
                 klass.body?.functions?.first()?.name?.contains(it, ignoreCase = true) == true
             } -> report(
-                CodeSmell(
-                    issue,
-                    Entity.Companion.from(klass),
-                    "UseCase function should be named 'execute' or 'invoke'"
-                )
+                CodeSmell(issue, Entity.Companion.from(klass), REPORT_MESSAGE_2)
             )
         }
     }

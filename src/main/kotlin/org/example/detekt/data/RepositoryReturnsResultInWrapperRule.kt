@@ -11,11 +11,16 @@ import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
-class ResultWrapperRule(config: Config) : Rule(config) {
+
+class RepositoryReturnsResultInWrapperRule(config: Config) : Rule(config) {
 
     private companion object {
-        const val RULE_DESCRIPTION =
-            "Repository functions should return data in wrapper. Result, Either, Try"
+        val availableWrappers = listOf("Result", "Attemp")
+
+        val RULE_DESCRIPTION =
+            "Проверяет, что методы репозитория возвращают данные в оболочке  ${availableWrappers.joinToString()} для явной обработки ошибок и успешных результатов."
+        val REPORT_MESSAGE =
+            "Данные должны возвращаться в оболочке ${availableWrappers.joinToString()}"
     }
 
     override val issue: Issue
@@ -25,7 +30,7 @@ class ResultWrapperRule(config: Config) : Rule(config) {
         super.visitNamedFunction(function)
 
         if (isRepositoryFunction(function) && !hasResultWrapperReturn(function)) {
-            report(CodeSmell(issue, Entity.Companion.from(function), RULE_DESCRIPTION))
+            report(CodeSmell(issue, Entity.Companion.from(function), REPORT_MESSAGE))
         }
     }
 
@@ -37,9 +42,7 @@ class ResultWrapperRule(config: Config) : Rule(config) {
     private fun hasResultWrapperReturn(function: KtNamedFunction): Boolean {
         val returnType = function.typeReference?.text
         returnType ?: return false
-        return returnType.contains("Result") ||
-                returnType.contains("Either") ||
-                returnType.contains("Try")
+        return availableWrappers.any { wrapperName -> returnType.contains(wrapperName) }
     }
 
 }

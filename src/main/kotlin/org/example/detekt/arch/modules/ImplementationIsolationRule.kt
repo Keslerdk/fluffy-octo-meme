@@ -16,10 +16,10 @@ import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 import org.jetbrains.kotlin.psi.psiUtil.isPrivate
 
-class ImplLeakRule(config: Config) : Rule(config) {
+class ImplementationIsolationRule(config: Config) : Rule(config) {
     private companion object {
         const val RULE_DESCRIPTION =
-            "All classes and functions with implementation must be marked as internal"
+            "Проверяет, что в слоях 'data' и 'ui' все внутренние реализации помечены как internal"
     }
 
     override val issue: Issue
@@ -73,5 +73,5 @@ class ImplLeakRule(config: Config) : Rule(config) {
 
 
     private fun getReportMessage(type: ModuleType) =
-        "All impls of ${type.possibleNames.first()} layer must be marked as internal"
+        "Все внутренние реализации ${type.possibleNames.first()} должны быть помечены internal"
 }

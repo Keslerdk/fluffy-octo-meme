@@ -13,9 +13,11 @@ import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.forEachDescendantOfType
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
-class FlowSubscriptionRule(config: Config) : Rule(config) {
+class FlowSubscriptionInViewModelRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Reports when flow subscribed not in ViewModel class"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что подписка на Flow происходит только в ViewModel."
+        const val REPORT_MESSAGE = "Подписка на Flow возможна только в ViewModel"
         val subscribeFunction =
             listOf(
                 "collect(\\(|\\{).*(\\)|\\})".toRegex(),
@@ -52,13 +54,7 @@ class FlowSubscriptionRule(config: Config) : Rule(config) {
                 expression.selectorExpression?.text?.matches(it) == true
             }
             if (isSubscribed) {
-                report(
-                    CodeSmell(
-                        issue,
-                        Entity.from(expression),
-                        "Flow subscription allowed only in ViewModel"
-                    )
-                )
+                report(CodeSmell(issue, Entity.from(expression), REPORT_MESSAGE))
             }
         }
     }

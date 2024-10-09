@@ -9,9 +9,11 @@ import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
 import org.jetbrains.kotlin.psi.KtClass
 
-class ViewUpdateStateRule(config: Config) : Rule(config) {
+class ViewStateUpdateThroughUpdateMethodRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "View state should only updated with 'update'"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что ViewState обновляется только через метод 'update'."
+        const val REPORT_MESSAGE = "Используйте метод 'update' для изменения состояния."
         val forbiddenUpdate = listOf(".value = ", "emit")
     }
 
@@ -29,7 +31,7 @@ class ViewUpdateStateRule(config: Config) : Rule(config) {
         klass.body?.functions?.forEach { func ->
             val isWrongUpdate = forbiddenUpdate.any { func.text.contains(it) }
             if (isWrongUpdate) {
-                report(CodeSmell(issue, Entity.Companion.from(func), RULE_DESCRIPTION))
+                report(CodeSmell(issue, Entity.Companion.from(func), REPORT_MESSAGE))
             }
         }
     }

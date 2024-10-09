@@ -3,11 +3,10 @@ package org.example.detekt.coroutines
 import io.gitlab.arturbosch.detekt.api.*
 import org.jetbrains.kotlin.psi.KtCallExpression
 
-class ManualCoroutineScopeCreationRule(config: Config) : Rule(config) {
+class NoManualCoroutineScopeRule(config: Config) : Rule(config) {
 
     private companion object {
-        const val RULE_DESCRIPTION =
-            "Not allowed to create CoroutineScope. Use scope with lifecycles (such as viewModelScope, lifecycleScope)"
+        const val RULE_DESCRIPTION = "Проверяет, что CoroutineScope не создается вручную."
     }
 
     override val issue = Issue(
@@ -25,7 +24,7 @@ class ManualCoroutineScopeCreationRule(config: Config) : Rule(config) {
                 CodeSmell(
                     issue,
                     Entity.from(expression),
-                    "Use scope with lifecycle (such as viewModelScope, lifecycleScope)"
+                    "Используйте встроенные скоупы (viewModelScope, lifecycleScope)"
                 )
             )
         }

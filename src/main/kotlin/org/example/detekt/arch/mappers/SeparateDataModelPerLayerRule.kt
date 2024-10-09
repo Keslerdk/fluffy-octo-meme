@@ -18,9 +18,12 @@ import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 //todo: mutex
 private val dataClasses: MutableSet<KtClass> = mutableSetOf()
 
-class LayeredModelsRule(config: Config) : Rule(config) {
+class SeparateDataModelPerLayerRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Each layer (data, domain, UI) must have own model"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что каждый слой имеет свою собственную модель данных и они не используются в других слоях."
+        const val REPORT_MESSAGE_DATA = "Domain модель не должна использоваться для получения данных"
+        const val REPORT_MESSAGE_DOMAIN = "Domain модель не должна использоваться для отображения данных"
     }
 
     override val issue: Issue
@@ -35,13 +38,7 @@ class LayeredModelsRule(config: Config) : Rule(config) {
 
         //todo: как проверить что не используется в дата-слое, если используется не serialization?
         if (klass.hasAnnotation("Serializable")) {
-            report(
-                CodeSmell(
-                    issue,
-                    Entity.Companion.from(klass),
-                    "Domain models shouldn't be used to transfer data"
-                )
-            )
+            report(CodeSmell(issue, Entity.Companion.from(klass), REPORT_MESSAGE_DATA))
         }
     }
 
@@ -59,13 +56,7 @@ class LayeredModelsRule(config: Config) : Rule(config) {
                 }
 
             if (hasDomainImport == true) {
-                report(
-                    CodeSmell(
-                        issue,
-                        Entity.Companion.from(function),
-                        "Domain models shouldn't be used to display ui"
-                    )
-                )
+                report(CodeSmell(issue, Entity.Companion.from(function), REPORT_MESSAGE_DOMAIN))
             }
         }
     }
@@ -73,29 +64,29 @@ class LayeredModelsRule(config: Config) : Rule(config) {
 
     /**
     private class MyVisitor : DetektVisitor() {
-        val dataClasses: MutableSet<KtClass> = mutableSetOf()
-        val funParamTypes: MutableSet<String> = mutableSetOf()
+    val dataClasses: MutableSet<KtClass> = mutableSetOf()
+    val funParamTypes: MutableSet<String> = mutableSetOf()
 
-        fun getDomainModels(): List<KtClass> {
-            return dataClasses.filter { getCurrentLayer(it.name.orEmpty()) == ModuleType.DOMAIN }
-                .filter { funParamTypes.contains(it.name) }
-        }
+    fun getDomainModels(): List<KtClass> {
+    return dataClasses.filter { getCurrentLayer(it.name.orEmpty()) == ModuleType.DOMAIN }
+    .filter { funParamTypes.contains(it.name) }
+    }
 
-        override fun visitClass(klass: KtClass) {
-            super.visitClass(klass)
-            if (klass.isData()) {
-                dataClasses.add(klass)
-            }
-        }
+    override fun visitClass(klass: KtClass) {
+    super.visitClass(klass)
+    if (klass.isData()) {
+    dataClasses.add(klass)
+    }
+    }
 
-        override fun visitNamedFunction(function: KtNamedFunction) {
-            super.visitNamedFunction(function)
-            if (function.hasAnnotation("Composable")) {
-                function.valueParameters.forEach { param ->
-                    param.typeReference?.name?.let { funParamTypes.add(it) }
-                }
-            }
-        }
+    override fun visitNamedFunction(function: KtNamedFunction) {
+    super.visitNamedFunction(function)
+    if (function.hasAnnotation("Composable")) {
+    function.valueParameters.forEach { param ->
+    param.typeReference?.name?.let { funParamTypes.add(it) }
+    }
+    }
+    }
     }
      **/
 }

@@ -11,7 +11,8 @@ import org.jetbrains.kotlin.psi.KtClass
 
 class NoStateInRepositoryImplRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Repository shouldn't have state"
+        const val RULE_DESCRIPTION = "Проверяет, что в репозитории не сохраняется состояние."
+        const val REPORT_MESSAGE = "Репозитории не должны сохранять состояние"
     }
 
     override val issue: Issue
@@ -21,13 +22,7 @@ class NoStateInRepositoryImplRule(config: Config) : Rule(config) {
         super.visitClass(klass)
         if (klass.name?.contains("Repository", ignoreCase = true) == true && !klass.isInterface()) {
             if (klass.getProperties().isNotEmpty()) {
-                report(
-                    CodeSmell(
-                        issue,
-                        Entity.Companion.from(klass),
-                        "Repository can not have any properties"
-                    )
-                )
+                report(CodeSmell(issue, Entity.Companion.from(klass), REPORT_MESSAGE))
             }
         }
     }

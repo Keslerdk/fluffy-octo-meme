@@ -11,9 +11,10 @@ import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
-class CrudRepositoryNamingRule(config: Config) : Rule(config) {
+class RepositoryMethodNamingRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Repository functions should be named with crudo"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что публичные методы репозитория имеют правильные имена: 'create', 'get', 'fetch', 'update', или 'delete'."
         val availableNames = listOf("create", "get", "fetch", "update", "delete")
     }
 
@@ -39,7 +40,7 @@ class CrudRepositoryNamingRule(config: Config) : Rule(config) {
                 CodeSmell(
                     issue,
                     Entity.Companion.from(function),
-                    "${availableNames.joinToString()} should be in function name"
+                    "${availableNames.joinToString()} - должно быть в названии функции"
                 )
             )
         }
