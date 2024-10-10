@@ -37,26 +37,28 @@ WBCustomRules:
   FlowSubscriptionInViewModelRule:
     active: true
 
-  KoinModulesDistributionRule:
+  NoKoinModuleInAppModuleRule:
     active: true
-  NoByInjectRule:
+  NoDependencyInjectionWithByInjectRule:
     active: true
-  KoinModuleScopeRule:
+  KoinModuleMustHaveScopeRule:
     active: true
 
   NoDirectColorUseRule:
     active: true
-  NoCollectAsStateInComposableRule:
+  NoCollectAsStateRule:
+    active: true
+  StringsMustBeConstantsOrResourceRule:
     active: true
 
-  NavigationGraphSubgraphRule:
+  NavigationGraphsMustBeDividedIntoSubgraphsRule:
     active: true
-  NoExtraParamsInNavigationRule:
+  NavigationWithSingleArgumentRule:
     active: true
 
-  UseStubsInTestsRule:
+  StubsNotMocksInTestsRule:
     active: true
-  RecreateSutRule:
+  RecreateSUTForEachTestRule:
     active: true
-  BeforeAnnotationInTest:
+  BeforeAnnotationInTestRule:
     active: test

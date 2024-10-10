@@ -15,21 +15,22 @@ import org.example.detekt.arch.mvvm.ViewStateUpdateThroughUpdateMethodRule
 import org.example.detekt.arch.repository.RepositoryMethodNamingRule
 import org.example.detekt.arch.repository.NoStateInRepositoryImplRule
 import org.example.detekt.arch.repository.SingleSourceRepositoryImplRule
-import org.example.detekt.compose.NoCollectAsStateInComposableRule
+import org.example.detekt.compose.NoCollectAsStateRule
 import org.example.detekt.compose.NoDirectColorUseRule
 import org.example.detekt.coroutines.FlowSubscriptionInViewModelRule
 import org.example.detekt.coroutines.NoManualCoroutineScopeRule
+import org.example.detekt.coroutines.StringsMustBeConstantsOrResourceRule
 import org.example.detekt.data.RepositoryReturnsResultInWrapperRule
-import org.example.detekt.di.KoinModuleScopeRule
-import org.example.detekt.di.KoinModulesDistributionRule
-import org.example.detekt.di.NoByInjectRule
-import org.example.detekt.navigation.NavigationGraphSubgraphRule
-import org.example.detekt.navigation.NoExtraParamsInNavigationRule
-import org.example.detekt.test.BeforeAnnotationInTest
-import org.example.detekt.test.RecreateSutRule
-import org.example.detekt.test.UseStubsInTestsRule
+import org.example.detekt.di.KoinModuleHaveScopeRule
+import org.example.detekt.di.NoKoinModuleInAppModuleRule
+import org.example.detekt.di.NoDependencyInjectionWithByInjectRule
+import org.example.detekt.navigation.NavigationGraphsMustBeDividedIntoSubgraphsRule
+import org.example.detekt.navigation.NavigationWithSingleArgumentRule
+import org.example.detekt.test.BeforeAnnotationInTestRule
+import org.example.detekt.test.RecreateSUTForEachTestRule
+import org.example.detekt.test.StubsNotMocksInTestsRule
 
-class MyRuleSetProvider : RuleSetProvider {
+class WbCustomRuleSetProvider : RuleSetProvider {
     override val ruleSetId: String = "WBCustomRules"
 
     override fun instance(config: Config): RuleSet {
@@ -64,22 +65,23 @@ class MyRuleSetProvider : RuleSetProvider {
                 FlowSubscriptionInViewModelRule(config),
 
                 //di
-                KoinModulesDistributionRule(config),
-                NoByInjectRule(config),
-                KoinModuleScopeRule(config),
+                NoKoinModuleInAppModuleRule(config),
+                NoDependencyInjectionWithByInjectRule(config),
+                KoinModuleHaveScopeRule(config),
 
                 //compose
                 NoDirectColorUseRule(config),
-                NoCollectAsStateInComposableRule(config),
+                NoCollectAsStateRule(config),
+                StringsMustBeConstantsOrResourceRule(config),
 
                 //navigation
-                NavigationGraphSubgraphRule(config),
-                NoExtraParamsInNavigationRule(config),
+                NavigationGraphsMustBeDividedIntoSubgraphsRule(config),
+                NavigationWithSingleArgumentRule(config),
 
                 //tests
-                UseStubsInTestsRule(config),
-                RecreateSutRule(config),
-                BeforeAnnotationInTest(config)
+                StubsNotMocksInTestsRule(config),
+                RecreateSUTForEachTestRule(config),
+                BeforeAnnotationInTestRule(config)
             )
         )
     }

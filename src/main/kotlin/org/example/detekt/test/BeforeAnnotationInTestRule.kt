@@ -12,9 +12,12 @@ import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.forEachDescendantOfType
 
-class BeforeAnnotationInTest(config: Config) : Rule(config) {
+class BeforeAnnotationInTestRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Every test should have setup method with @Before annotation"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что в каждом тесте присутствует аннотация @Before или @BeforeEach."
+        const val REPORT_MESSAGE =
+            "Используйте setup метод для инициализации переменных перед тестом."
     }
 
     override val issue: Issue
@@ -24,7 +27,7 @@ class BeforeAnnotationInTest(config: Config) : Rule(config) {
         super.visitClass(klass)
         val isTestClass = klass.name?.contains("Test", ignoreCase = true) ?: return
         if (isTestClass && !isContainsSetUpMethod(klass)) {
-            report(CodeSmell(issue, Entity.Companion.from(klass), RULE_DESCRIPTION))
+            report(CodeSmell(issue, Entity.Companion.from(klass), REPORT_MESSAGE))
         }
     }
 

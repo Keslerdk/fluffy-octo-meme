@@ -10,9 +10,10 @@ import io.gitlab.arturbosch.detekt.api.Severity
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
 
-class RecreateSutRule(config: Config) : Rule(config) {
+class RecreateSUTForEachTestRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Sut must recreate for each test"
+        const val RULE_DESCRIPTION = "Проверяет, что объект SUT пересоздается для каждого теста."
+        const val REPORT_MESSAGE = "Не найден 'lateinit sut' в тестовом классе."
     }
 
     override val issue: Issue
@@ -25,7 +26,7 @@ class RecreateSutRule(config: Config) : Rule(config) {
             property.name == "sut" && !property.hasModifier(KtTokens.LATEINIT_KEYWORD)
         }
         if (isClassTest && !haveSutProperty) {
-            report(CodeSmell(issue, Entity.Companion.from(klass), "No lateinit sut property in test class"))
+            report(CodeSmell(issue, Entity.Companion.from(klass), REPORT_MESSAGE))
         }
     }
 }

@@ -3,16 +3,17 @@ package org.example.detekt.test
 import io.gitlab.arturbosch.detekt.api.*
 import org.jetbrains.kotlin.psi.*
 
-class UseStubsInTestsRule(config: Config) : Rule(config) {
+class StubsNotMocksInTestsRule(config: Config) : Rule(config) {
 
     private companion object {
-        private const val RULE_DESCRIPTION = "Stubs should be used to replace classes in tests, not mocks."
-        private const val REPORT_MESSAGE = "Use stubs, not mocks"
+        private const val RULE_DESCRIPTION =
+            "Проверяет, что в тестах используются стабы, а не моки в тестах."
+        private const val REPORT_MESSAGE = "Заменить моки на стабы."
         private val mocks = listOf("Mockito", "mockk")
     }
 
     override val issue = Issue(
-        id = "UseStubsInTests",
+        id = javaClass.simpleName,
         severity = Severity.Defect,
         description = RULE_DESCRIPTION,
         debt = Debt.FIVE_MINS

@@ -11,9 +11,10 @@ import io.gitlab.arturbosch.detekt.rules.hasAnnotation
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 
-class NoExtraParamsInNavigationRule(config: Config) : Rule(config) {
+class NavigationWithSingleArgumentRule(config: Config) : Rule(config) {
     private companion object {
-        const val RULE_DESCRIPTION = "Avoid pass arguments expect id in route"
+        const val RULE_DESCRIPTION = "Проверяет, что при навигации передается не более одного параметра."
+        const val REPORT_MESSAGE = "При навигации следует передавать только один параметр."
     }
 
     override val issue: Issue
@@ -35,7 +36,7 @@ class NoExtraParamsInNavigationRule(config: Config) : Rule(config) {
         val haveManyParams = function.valueParameters.count() > 1
 
         if (isRouteFunc && haveManyParams) {
-            report(CodeSmell(issue, Entity.Companion.from(function), RULE_DESCRIPTION))
+            report(CodeSmell(issue, Entity.Companion.from(function), REPORT_MESSAGE))
         }
     }
 }

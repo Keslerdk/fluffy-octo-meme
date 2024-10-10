@@ -4,11 +4,11 @@ import io.gitlab.arturbosch.detekt.api.*
 import org.example.detekt.body
 import org.jetbrains.kotlin.psi.*
 
-class NavigationGraphSubgraphRule(config: Config) : Rule(config) {
+class NavigationGraphsMustBeDividedIntoSubgraphsRule(config: Config) : Rule(config) {
 
     companion object {
-        const val RULE_DESCRIPTION = "Navigation should be divided into graphs and subgraphs."
-        const val REPORT_MESSAGE = "The navigation graph should be divided into subgraphs."
+        const val RULE_DESCRIPTION = "Проверяет, что все навигационные графы разделены на сабграфы."
+        const val REPORT_MESSAGE = "Рекомендуется разделить граф на сабграфы."
     }
 
     override val issue = Issue(

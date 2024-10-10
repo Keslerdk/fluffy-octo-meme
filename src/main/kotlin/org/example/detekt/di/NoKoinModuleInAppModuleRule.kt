@@ -3,11 +3,11 @@ package org.example.detekt.di
 import io.gitlab.arturbosch.detekt.api.*
 import org.jetbrains.kotlin.psi.KtFile
 
-class KoinModulesDistributionRule(config: Config) : Rule(config) {
+class NoKoinModuleInAppModuleRule(config: Config) : Rule(config) {
 
     private companion object {
-        const val RULE_DESCRIPTION =
-            "Koin modules should be initialized in each Android-module, not in app"
+        const val RULE_DESCRIPTION = "Проверяет, что Koin модули не объявлены в app модуле."
+        const val REPORT_MESSAGE = "Нет импортов Koin модулей."
     }
 
     override val issue = Issue(
@@ -24,7 +24,7 @@ class KoinModulesDistributionRule(config: Config) : Rule(config) {
                 it.importPath?.pathStr?.contains("module") == true
             }
             if (haveNoneModuleImports) {
-                report(CodeSmell(issue, Entity.Companion.from(root), "No imports with modules"))
+                report(CodeSmell(issue, Entity.Companion.from(root), REPORT_MESSAGE))
             }
         }
     }

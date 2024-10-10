@@ -9,9 +9,9 @@ class NoDirectColorUseRule(config: Config) : Rule(config) {
 
     companion object {
         private const val RULE_DESCRIPTION =
-            "Colors should not be used directly. All colors should be defined in the theme."
+            "Проверяет, что цвета не создаются напрямую через Color(), а используются из темы."
         private const val REPORT_MESSAGE =
-            "Colors should not be used directly. Extract them from the theme."
+            "Используйте цвета из темы приложения"
     }
 
     override val issue = Issue(

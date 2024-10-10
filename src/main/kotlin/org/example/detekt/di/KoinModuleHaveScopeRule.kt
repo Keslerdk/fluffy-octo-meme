@@ -3,10 +3,12 @@ package org.example.detekt.di
 import io.gitlab.arturbosch.detekt.api.*
 import org.jetbrains.kotlin.psi.*
 
-class KoinModuleScopeRule(config: Config) : Rule(config) {
+class KoinModuleHaveScopeRule(config: Config) : Rule(config) {
 
     private companion object {
-        const val RULE_DESCRIPTION = "Koin modules should contain scope"
+        const val RULE_DESCRIPTION =
+            "Проверяет, что в каждом Koin модуле объявлен scope для управления временем жизни зависимостей."
+        const val REPORT_MESSAGE = "Koin модуль не содержит объявления scope."
     }
 
     override val issue = Issue(
@@ -28,13 +30,7 @@ class KoinModuleScopeRule(config: Config) : Rule(config) {
             val hasScope = moduleBody?.statements?.any { it.text.contains("scope") } == true
 
             if (!hasScope) {
-                report(
-                    CodeSmell(
-                        issue,
-                        Entity.from(expression),
-                        RULE_DESCRIPTION
-                    )
-                )
+                report(CodeSmell(issue, Entity.from(expression), REPORT_MESSAGE))
             }
         }
     }
