@@ -1,1 +1,6 @@
-org.example.detekt.WbCustomRuleSetProvider
+org.example.detekt.providers.WbArchRulesProvider
+org.example.detekt.providers.WbComposeRulesProvider
+org.example.detekt.providers.WbCoroutinesRulesProvider
+org.example.detekt.providers.WbDIRulesProvider
+org.example.detekt.providers.WbNavigationRulesProvider
+org.example.detekt.providers.WbTestRuleProvider

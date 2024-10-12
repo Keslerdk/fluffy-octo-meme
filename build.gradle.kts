@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter
+
 plugins {
     kotlin("jvm") version "2.0.10"
 //    `maven-publish`
@@ -8,6 +10,10 @@ plugins {
 
 dependencies {
     compileOnly("io.gitlab.arturbosch.detekt:detekt-api:1.23.7")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-html:0.11.0") {
+        exclude(group = "org.jetbrains.kotlin")
+    }
 
 //    testImplementation("io.gitlab.arturbosch.detekt:detekt-test:1.23.7")
 //    testImplementation("io.kotest:kotest-assertions-core:5.9.1")

@@ -6,7 +6,7 @@ This repository is a template. You can use it to generate your own repository to
 
 ### In command line
 ```
-detekt --config /Users/kesler/StudioProjects/staga/fluffy-octo-meme/config/detekt.yml --input /Users/kesler/StudioProjects/staga/chugunov-dmitriy --plugins /Users/kesler/Downloads/detekt-custom-rule.jar,/Users/kesler/Downloads/twitter-compose-rules.jar,/Users/kesler/Downloads/compose-detekt-rules.jar --report 'html:/Users/kesler/Downloads/detekt.html'
+detekt --config /Users/kesler/StudioProjects/staga/fluffy-octo-meme/config/detekt.yml --input /Users/kesler/StudioProjects/staga/chugunov-dmitriy --plugins /Users/kesler/Downloads/detekt-custom-rule.jar,/Users/kesler/Downloads/twitter-compose-rules.jar,/Users/kesler/Downloads/compose-detekt-rules.jar --report 'HtmlReport:/Users/kesler/Downloads/custom_detekt_report.html'
 ```
 
 deps:

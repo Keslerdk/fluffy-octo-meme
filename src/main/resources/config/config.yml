@@ -1,4 +1,4 @@
-WBCustomRules:
+WbArch:
   active: true
 
   MissingArcLayerRule:
@@ -32,17 +32,8 @@ WBCustomRules:
   ViewStateClassRule:
     active: true
 
-  NoManualCoroutineScopeRule:
-    active: true
-  FlowSubscriptionInViewModelRule:
-    active: true
-
-  NoKoinModuleInAppModuleRule:
-    active: true
-  NoDependencyInjectionWithByInjectRule:
-    active: true
-  KoinModuleMustHaveScopeRule:
-    active: true
+WbCompose:
+  active: true
 
   NoDirectColorUseRule:
     active: true
@@ -51,14 +42,39 @@ WBCustomRules:
   StringsMustBeConstantsOrResourceRule:
     active: true
 
+WbCoroutines:
+  active: true
+
+  NoManualCoroutineScopeRule:
+    active: true
+  FlowSubscriptionInViewModelRule:
+    active: true
+
+WbDI:
+  active: true
+
+  NoKoinModuleInAppModuleRule:
+    active: true
+  NoDependencyInjectionWithByInjectRule:
+    active: true
+  KoinModuleMustHaveScopeRule:
+    active: true
+
+WbNavigation:
+  active: true
+
   NavigationGraphsMustBeDividedIntoSubgraphsRule:
     active: true
   NavigationWithSingleArgumentRule:
     active: true
 
+WbTests:
+  active: true
+
   StubsNotMocksInTestsRule:
     active: true
   RecreateSUTForEachTestRule:
     active: true
-  BeforeAnnotationInTestRule:
-    active: test
+#  BeforeAnnotationInTestRule:
+#    active: test
+

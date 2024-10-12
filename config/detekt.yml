@@ -728,7 +728,7 @@ style:
 #    excludeImports:
 #      - 'java.util.*'
 
-WBCustomRules:
+WbArch:
   active: true
 
   MissingArcLayerRule:
@@ -762,17 +762,8 @@ WBCustomRules:
   ViewStateClassRule:
     active: true
 
-  NoManualCoroutineScopeRule:
-    active: true
-  FlowSubscriptionInViewModelRule:
-    active: true
-
-  NoKoinModuleInAppModuleRule:
-    active: true
-  NoDependencyInjectionWithByInjectRule:
-    active: true
-  KoinModuleMustHaveScopeRule:
-    active: true
+WbCompose:
+  active: true
 
   NoDirectColorUseRule:
     active: true
@@ -781,10 +772,33 @@ WBCustomRules:
   StringsMustBeConstantsOrResourceRule:
     active: true
 
+WbCoroutines:
+  active: true
+
+  NoManualCoroutineScopeRule:
+    active: true
+  FlowSubscriptionInViewModelRule:
+    active: true
+
+WbDI:
+  active: true
+
+  NoKoinModuleInAppModuleRule:
+    active: true
+  NoDependencyInjectionWithByInjectRule:
+    active: true
+  KoinModuleMustHaveScopeRule:
+    active: true
+
+WbNavigation:
+  active: true
+
   NavigationGraphsMustBeDividedIntoSubgraphsRule:
     active: true
   NavigationWithSingleArgumentRule:
     active: true
+
+WbTests:
 
   StubsNotMocksInTestsRule:
     active: true
@@ -792,6 +806,8 @@ WBCustomRules:
     active: true
   BeforeAnnotationInTestRule:
     active: true
+
+
 
 #https://github.com/mrmans0n/compose-rules
 Compose:
