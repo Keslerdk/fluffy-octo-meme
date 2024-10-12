@@ -1,7 +1,7 @@
 import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter
 
 plugins {
-    kotlin("jvm") version "2.0.10"
+    kotlin("jvm") version "2.0.21"
 //    `maven-publish`
 }
 
