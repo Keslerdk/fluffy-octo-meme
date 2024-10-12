@@ -5,7 +5,7 @@ import io.gitlab.arturbosch.detekt.api.RuleSet
 import io.gitlab.arturbosch.detekt.api.RuleSetProvider
 import org.example.detekt.rules.compose.NoCollectAsStateRule
 import org.example.detekt.rules.compose.NoDirectColorUseRule
-import org.example.detekt.rules.coroutines.StringsMustBeConstantsOrResourceRule
+import org.example.detekt.rules.compose.StringsMustBeConstantsOrResourceRule
 
 class WbComposeRulesProvider : RuleSetProvider {
     override val ruleSetId: String

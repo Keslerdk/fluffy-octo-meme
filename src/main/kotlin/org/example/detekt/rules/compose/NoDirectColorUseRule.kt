@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
+//todo добавить исклчение для Transparent?
 class NoDirectColorUseRule(config: Config) : Rule(config) {
 
     companion object {

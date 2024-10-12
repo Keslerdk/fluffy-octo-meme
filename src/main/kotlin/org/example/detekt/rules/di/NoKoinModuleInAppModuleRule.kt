@@ -23,7 +23,7 @@ class NoKoinModuleInAppModuleRule(config: Config) : Rule(config) {
             val haveNoneModuleImports = root.importList?.imports.orEmpty().none {
                 it.importPath?.pathStr?.contains("module") == true
             }
-            if (haveNoneModuleImports) {
+            if (!haveNoneModuleImports) {
                 report(CodeSmell(issue, Entity.Companion.from(root), REPORT_MESSAGE))
             }
         }

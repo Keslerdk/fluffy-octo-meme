@@ -20,7 +20,7 @@ class NavigationGraphsMustBeDividedIntoSubgraphsRule(config: Config) : Rule(conf
 
     override fun visitNamedFunction(function: KtNamedFunction) {
         super.visitNamedFunction(function)
-        val isNavHost = function.body?.text?.contains("NavHost", ignoreCase = true) ?: return
+        val isNavHost = function.body?.text?.contains("NavHost") ?: return
         val haveSubgraph = function.body?.text?.contains("navigation") == false
         if (isNavHost && haveSubgraph) {
             report(CodeSmell(issue, Entity.Companion.from(function), REPORT_MESSAGE))

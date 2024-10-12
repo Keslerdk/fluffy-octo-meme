@@ -1,4 +1,4 @@
-package org.example.detekt.rules.coroutines
+package org.example.detekt.rules.compose
 
 import io.gitlab.arturbosch.detekt.api.CodeSmell
 import io.gitlab.arturbosch.detekt.api.Config
@@ -29,6 +29,7 @@ class StringsMustBeConstantsOrResourceRule(config: Config) : Rule(config) {
 
     override fun visitStringTemplateExpression(expression: KtStringTemplateExpression) {
         super.visitStringTemplateExpression(expression)
+        if (expression.text == "\"\"") return
         if ((expression.parent as? KtProperty)?.isConstant() == false &&
             !isGradleFile(expression) && !isTestFile(expression)
         ) {
@@ -41,10 +42,9 @@ class StringsMustBeConstantsOrResourceRule(config: Config) : Rule(config) {
         if (isGradleFile(expression) || isTestFile(expression)) return
 
         expression.valueArguments.forEach { argument ->
-            expression.parent
             val argumentExpression = argument.getArgumentExpression()
             if (argumentExpression is KtStringTemplateExpression
-                && !isExceptionConstructor(argumentExpression)
+                && !isExceptionConstructor(argumentExpression) && argumentExpression.text != "\"\""
             ) {
                 report(CodeSmell(issue, Entity.from(argumentExpression), REPORT_MESSAGE))
             }
