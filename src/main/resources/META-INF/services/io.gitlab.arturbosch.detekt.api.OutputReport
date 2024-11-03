@@ -1,2 +1,3 @@
 org.example.detekt.report.HtmlReport
 org.example.detekt.report.XlsxReport
+org.example.detekt.report.CommonXlsxReport
