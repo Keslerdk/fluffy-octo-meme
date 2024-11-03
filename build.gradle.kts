@@ -1,12 +1,13 @@
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter
-
 plugins {
     kotlin("jvm") version "2.0.10"
-//    `maven-publish`
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-//group = "org.example.detekt"
-//version = "1.0-SNAPSHOT"
+java {
+    sourceCompatibility = JavaVersion.VERSION_19
+    targetCompatibility = JavaVersion.VERSION_19
+}
+
 
 dependencies {
     compileOnly("io.gitlab.arturbosch.detekt:detekt-api:1.23.7")
@@ -14,26 +15,15 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-html:0.11.0") {
         exclude(group = "org.jetbrains.kotlin")
     }
+    implementation("org.apache.poi:poi-ooxml:5.2.3")
 
-//    testImplementation("io.gitlab.arturbosch.detekt:detekt-test:1.23.7")
-//    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
-//    testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")// Версия может быть новее
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.1")
 }
 
-//kotlin {
-//    jvmToolchain(22)
-//}
 
-//tasks.withType<Test>().configureEach {
-//    useJUnitPlatform()
-//    systemProperty("junit.jupiter.testinstance.lifecycle.default", "per_class")
-//    systemProperty("compile-snippet-tests", project.hasProperty("compile-test-snippets"))
-//}
-//
-//publishing {
-//    publications {
-//        create<MavenPublication>("mavenJava") {
-//            from(components["java"])
-//        }
-//    }
-//}
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "19"
+    }
+}
