@@ -15,7 +15,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-html:0.11.0") {
         exclude(group = "org.jetbrains.kotlin")
     }
-    implementation("org.apache.poi:poi-ooxml:5.2.3")
+    implementation("org.apache.poi:poi-ooxml:5.3.0")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")// Версия может быть новее
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.1")
