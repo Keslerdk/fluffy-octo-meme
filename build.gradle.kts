@@ -18,7 +18,7 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.2.3")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")// Версия может быть новее
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.1")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.2")
 }
 
 
